@@ -1,0 +1,11 @@
+#passcode_layer {
+    max-width: 500px;
+    height: auto;
+    margin: auto;
+}
+
+#passcode_layer p {
+    margin: -3px 0px 3px 0px;
+    padding-left: 5px;
+    font-size: 1.5em;
+}

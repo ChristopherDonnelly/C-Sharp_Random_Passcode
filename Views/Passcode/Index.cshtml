@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Random Passcode Generator</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/style.css"/>
+</head>
+<body>
+    <div class="container form-control mt-5">
+        <div class="row p-3 text-center">
+            <div class="col-12 mt-4">
+                <p>Random passcode (passcode #<span id="count">0</span>)</p>
+            </div>
+            <div class="col-12 mt-4">
+                <div id="passcode_layer" class="border mb-2">
+                    <p id="passcode">&nbsp;</p>
+                </div>
+            </div>
+            <div class="col-12 mt-4 mb-4">
+                <button class="btn btn-info" type="button" id="generate">Generate</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
+    <script src="~/js/bootstrap.min.js" ></script>
+    <script>
+        var count = 0;
+
+        $(document).ready(function() {
+            getPasscode();
+            $('#generate').on('click', function() {
+                getPasscode();
+            });
+        });
+
+        function getPasscode(){
+            $.ajax({
+                url: "/get_passcode/"+count,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    count = data.count;
+                    $('#count').text(data.count);
+                    $('#passcode').text(data.passcode).effect( "shake", "slow" );
+                }
+            });
+        }
+    </script>
+</body>
+</html>
